@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Currency Conversion</string>
+    <string name="enter_amount">Enter the desired amount</string>
+    <string name="choose_conv_methid">Choose conversion method</string>
+    <string name="button_submit_conv">Submit conversion</string>
+    <string name="currency_conversion_result">Currency conversion result</string>
+    <string name="currency_buying">Buying: </string>
+    <string name="currency_selling">Selling: </string>
 </resources>

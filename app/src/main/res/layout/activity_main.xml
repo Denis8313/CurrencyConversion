@@ -1,18 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
     <TextView
+        android:id="@+id/textViewEnterAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/enter_amount"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextEnterAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="6"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="@+id/textViewEnterAmount"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEnterAmount" />
+
+    <TextView
+        android:id="@+id/TextViewCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/editTextEnterAmount"
+        app:layout_constraintStart_toEndOf="@+id/editTextEnterAmount"
+        tools:text="EUR"/>
+
+    <TextView
+        android:id="@+id/textViewConversionMethod"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="@+id/editTextEnterAmount"
+        app:layout_constraintTop_toBottomOf="@+id/editTextEnterAmount"
+        android:text="@string/choose_conv_methid"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/textViewFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="From"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/textViewConversionMethod"
+        app:layout_constraintTop_toBottomOf="@+id/textViewConversionMethod" />
+
+    <Spinner
+        android:id="@+id/spinnerFromCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:entries="@array/from_currency"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewFrom"
+        app:layout_constraintStart_toEndOf="@+id/textViewFrom" />
+
+    <TextView
+        android:id="@+id/textViewTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:text="To"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewFrom"
+        app:layout_constraintStart_toEndOf="@+id/spinnerFromCurrency" />
+
+    <Spinner
+        android:id="@+id/spinnerToCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewFrom"
+        app:layout_constraintStart_toEndOf="@+id/textViewTo"
+        android:entries="@array/to_currency"/>
+
+    <Button
+        android:id="@+id/buttonSubmitConversion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/button_submit_conv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewFrom" />
+
+    <TextView
+        android:id="@+id/textViewResultConversion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/currency_conversion_result"
+        app:layout_constraintStart_toStartOf="@+id/textViewFrom"
+        app:layout_constraintTop_toBottomOf="@+id/buttonSubmitConversion"
+        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:id="@+id/textViewBuying"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/currency_buying"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toStartOf="@+id/textViewResultConversion"
+        app:layout_constraintTop_toBottomOf="@+id/textViewResultConversion" />
+
+    <TextView
+        android:id="@+id/textViewInputBuying"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewBuying"
+        app:layout_constraintStart_toEndOf="@+id/textViewBuying"
+        tools:text="123.45"/>
+
+    <TextView
+        android:id="@+id/textViewCurrencyBuying"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewBuying"
+        app:layout_constraintStart_toEndOf="@+id/textViewInputBuying"
+        tools:text="KN"/>
+
+    <TextView
+        android:id="@+id/textViewSelling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/currency_selling"
+        app:layout_constraintStart_toStartOf="@+id/textViewBuying"
+        app:layout_constraintTop_toBottomOf="@+id/textViewBuying"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+    <TextView
+        android:id="@+id/textViewInputSelling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewSelling"
+        app:layout_constraintStart_toEndOf="@+id/textViewSelling"
+        tools:text="123.34"/>
+
+    <TextView
+        android:id="@+id/textViewCurrencySelling"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewSelling"
+        app:layout_constraintStart_toEndOf="@+id/textViewInputSelling"
+        tools:text="KN" />
+
 
 </android.support.constraint.ConstraintLayout>
