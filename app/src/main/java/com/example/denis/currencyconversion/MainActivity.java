@@ -12,8 +12,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String BASE_URL = "http://hnbex.eu/";
+    private TextView textViewBuyingResult, textViewSellingResult, textViewToCurrencyStringB, textViewToCurrencyStringS;
+    private EditText editTextInputValue;
+    private Spinner spinnerFromCurrency, spinnerToCurrency;
+    private Button buttonSubmitConversion;
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private double inputValue;
@@ -21,30 +34,35 @@ public class MainActivity extends AppCompatActivity {
     private String currencyTo;
     private double resultConversionBuying;
     private double resultConversionSelling;
+    private double getBuyingEuro;
+    private double getSellingEuro;
+    private String getCurrency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        editTextInputValue = (EditText) findViewById(R.id.editTextEnterAmount);
+        spinnerFromCurrency = (Spinner) findViewById(R.id.spinnerFromCurrency);
+        spinnerToCurrency = (Spinner) findViewById(R.id.spinnerToCurrency);
+        textViewBuyingResult = (TextView) findViewById(R.id.textViewInputBuying);
+        textViewSellingResult = (TextView) findViewById(R.id.textViewInputSelling);
+        textViewToCurrencyStringB = (TextView) findViewById(R.id.textViewCurrencyBuying);
+        textViewToCurrencyStringS = (TextView) findViewById(R.id.textViewCurrencySelling);
+
+        buttonSubmitConversion = (Button) findViewById(R.id.buttonSubmitConversion);
+
         updateUi();
     }
 
     public void updateUi() {
 
-        final EditText editTextInputValue = (EditText) findViewById(R.id.editTextEnterAmount);
-        final Spinner spinnerFromCurrency = (Spinner) findViewById(R.id.spinnerFromCurrency);
-        final Spinner spinnerToCurrency = (Spinner) findViewById(R.id.spinnerToCurrency);
-        final TextView textViewBuyingResult = (TextView) findViewById(R.id.textViewInputBuying);
-        final TextView textViewSellingResult = (TextView) findViewById(R.id.textViewInputSelling);
-        final TextView textViewToCurrencyStringB = (TextView) findViewById(R.id.textViewCurrencyBuying);
-        final TextView textViewToCurrencyStringS = (TextView) findViewById(R.id.textViewCurrencySelling);
-
-        Button buttonSubmitConversion = (Button) findViewById(R.id.buttonSubmitConversion);
-
         buttonSubmitConversion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                getRetrofitObject();
 
                 try {
                     inputValue = Double.valueOf(editTextInputValue.getText().toString());
@@ -52,13 +70,13 @@ public class MainActivity extends AppCompatActivity {
                     currencyTo = spinnerToCurrency.getSelectedItem().toString();
 
                     if (currencyFrom.equals("EUR") && currencyTo.equals("KN")) {
-                        resultConversionBuying = 7.5;
-                        resultConversionSelling = 7.0;
+                        resultConversionBuying = getBuyingEuro;
+                        resultConversionSelling = getSellingEuro;
                         textViewToCurrencyStringB.setText(currencyTo.toString());
                         textViewToCurrencyStringS.setText(currencyTo.toString());
                     } else if (currencyFrom.equals("KN") && currencyTo.equals("EUR")) {
-                        resultConversionBuying = 1 / 7.5;
-                        resultConversionSelling = 1 / 7.0;
+                        resultConversionBuying = 1 / getBuyingEuro;
+                        resultConversionSelling = 1 / getSellingEuro;
                         textViewToCurrencyStringB.setText(currencyTo.toString());
                         textViewToCurrencyStringS.setText(currencyTo.toString());
                     } else if (currencyFrom == currencyTo){
@@ -76,6 +94,43 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(LOG_TAG, "Unknown number", exception);
                 Toast.makeText(getApplicationContext(), "Please enter the value", Toast.LENGTH_SHORT).show();
             }
+            }
+        });
+    }
+
+    void getRetrofitObject() {
+
+        Retrofit retrofit = new retrofit2.Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        GetDataService service = retrofit.create(GetDataService.class);
+        Call<List<CurrencyConversion>> call = service.getCurrencyConversion();
+
+        call.enqueue(new Callback<List<CurrencyConversion>>() {
+            @Override
+            public void onResponse(Call<List<CurrencyConversion>> call, Response<List<CurrencyConversion>> response) {
+                try {
+
+                    List<CurrencyConversion> currencyConversions = response.body();
+
+                    for(int i = 0; i < currencyConversions.size(); i++) {
+                        if(i == 12) {
+                            getBuyingEuro = currencyConversions.get(i).getBuyingEuro();
+                            getSellingEuro = currencyConversions.get(i).getSellingEuro();
+                            getCurrency = currencyConversions.get(i).getCurrencyCode();
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.d("onResponse", "There is an error");
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CurrencyConversion>> call, Throwable t) {
+                Log.d("onFailure", t.toString());
             }
         });
     }

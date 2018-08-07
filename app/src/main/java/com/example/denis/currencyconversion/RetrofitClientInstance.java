@@ -6,9 +6,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClientInstance {
 
     private static Retrofit retrofit;
-    private static final String BASE_URL = "http://hnbex.eu/api/v1/rates/daily/?date=YYYY-MM-DD";
+    private static final String BASE_URL = "http://hnbex.eu/";
 
-    public static Retrofit getRetrofitInstance() {
+    public Retrofit getRetrofitInstance() {
         if(retrofit==null) {
             retrofit = new retrofit2.Retrofit.Builder()
                     .baseUrl(BASE_URL)
