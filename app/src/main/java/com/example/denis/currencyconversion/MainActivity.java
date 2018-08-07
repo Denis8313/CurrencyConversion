@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         final Spinner spinnerToCurrency = (Spinner) findViewById(R.id.spinnerToCurrency);
         final TextView textViewBuyingResult = (TextView) findViewById(R.id.textViewInputBuying);
         final TextView textViewSellingResult = (TextView) findViewById(R.id.textViewInputSelling);
+        final TextView textViewToCurrencyStringB = (TextView) findViewById(R.id.textViewCurrencyBuying);
+        final TextView textViewToCurrencyStringS = (TextView) findViewById(R.id.textViewCurrencySelling);
 
         Button buttonSubmitConversion = (Button) findViewById(R.id.buttonSubmitConversion);
 
@@ -42,8 +44,21 @@ public class MainActivity extends AppCompatActivity {
                 currencyFrom = spinnerFromCurrency.getSelectedItem().toString();
                 currencyTo = spinnerToCurrency.getSelectedItem().toString();
 
-                textViewBuyingResult.setText(String.valueOf(inputValue*7.5));
-                textViewSellingResult.setText(String.valueOf(inputValue*7.4));
+                if(currencyFrom.equals("EUR") && currencyTo.equals("KN")){
+                    resultConversionBuying = 7.5;
+                    resultConversionSelling = 7.0;
+                    textViewToCurrencyStringB.setText(currencyTo.toString());
+                    textViewToCurrencyStringS.setText(currencyTo.toString());
+                }
+                else if(currencyFrom.equals("KN") && currencyTo.equals("EUR")){
+                    resultConversionBuying = 1/7.5;
+                    resultConversionSelling = 1/7.0;
+                    textViewToCurrencyStringB.setText(currencyTo.toString());
+                    textViewToCurrencyStringS.setText(currencyTo.toString());
+                }
+
+                textViewBuyingResult.setText(String.valueOf(inputValue*resultConversionBuying));
+                textViewSellingResult.setText(String.valueOf(inputValue*resultConversionSelling));
 
             }
         });
