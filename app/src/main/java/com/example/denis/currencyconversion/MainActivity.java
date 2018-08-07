@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         buttonSubmitConversion = (Button) findViewById(R.id.buttonSubmitConversion);
 
+        getRetrofitObject();
         updateUi();
     }
 
@@ -61,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
         buttonSubmitConversion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                getRetrofitObject();
 
                 try {
                     inputValue = Double.valueOf(editTextInputValue.getText().toString());
