@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private double resultConversionSelling;
     private double getBuyingEuro;
     private double getSellingEuro;
+    private double getBuyingUSD;
+    private double getSellingUSD;
     private String getCurrency;
 
     @Override
@@ -78,7 +80,18 @@ public class MainActivity extends AppCompatActivity {
                         resultConversionSelling = 1 / getSellingEuro;
                         textViewToCurrencyStringB.setText(currencyTo.toString());
                         textViewToCurrencyStringS.setText(currencyTo.toString());
-                    } else if (currencyFrom == currencyTo){
+                    } else if (currencyFrom.equals("USD") && currencyTo.equals("KN")){
+                        resultConversionBuying = getBuyingUSD;
+                        resultConversionSelling = getSellingUSD;
+                        textViewToCurrencyStringB.setText(currencyTo.toString());
+                        textViewToCurrencyStringS.setText(currencyTo.toString());
+                    } else if (currencyFrom.equals("KN") && currencyTo.equals("USD")){
+                        resultConversionBuying = 1/getBuyingUSD;
+                        resultConversionSelling = 1/getSellingUSD;
+                        textViewToCurrencyStringB.setText(currencyTo.toString());
+                        textViewToCurrencyStringS.setText(currencyTo.toString());
+                    }
+                    else if (currencyFrom == currencyTo){
                         resultConversionBuying = 1;
                         resultConversionSelling = 1;
                         textViewToCurrencyStringB.setText(currencyTo.toString());
@@ -115,10 +128,14 @@ public class MainActivity extends AppCompatActivity {
                     List<CurrencyConversion> currencyConversions = response.body();
 
                     for(int i = 0; i < currencyConversions.size(); i++) {
-                        if(i == 12) {
+                        getCurrency = currencyConversions.get(i).getCurrencyCode();
+
+                        if(getCurrency.equals("EUR")) {
                             getBuyingEuro = currencyConversions.get(i).getBuyingEuro();
                             getSellingEuro = currencyConversions.get(i).getSellingEuro();
-                            getCurrency = currencyConversions.get(i).getCurrencyCode();
+                        } else if(getCurrency.equals("USD")) {
+                            getBuyingUSD = currencyConversions.get(i).getBuyingEuro();
+                            getSellingUSD = currencyConversions.get(i).getSellingEuro();
                         }
                     }
                 } catch (Exception e) {

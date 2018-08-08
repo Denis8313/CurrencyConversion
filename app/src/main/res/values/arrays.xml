@@ -2,11 +2,13 @@
 <resources>
     <string-array name="from_currency">
         <item>EUR</item>
+        <item>USD</item>
         <item>KN</item>
     </string-array>
 
     <string-array name="to_currency">
         <item>KN</item>
         <item>EUR</item>
+        <item>USD</item>
     </string-array>
 </resources>
