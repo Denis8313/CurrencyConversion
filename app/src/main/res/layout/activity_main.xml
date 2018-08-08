@@ -53,48 +53,48 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textSize="18sp"/>
 
-    <TextView
-        android:id="@+id/textViewFrom"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="From"
-        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/textViewConversionMethod"
-        app:layout_constraintTop_toBottomOf="@+id/textViewConversionMethod" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewConversionMethod">
 
-    <Spinner
-        android:id="@+id/spinnerFromCurrency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:entries="@array/from_currency"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewFrom"
-        app:layout_constraintStart_toEndOf="@+id/textViewFrom" />
+        <TextView
+            android:id="@+id/textViewFrom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="From"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/textViewTo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="32dp"
-        android:layout_marginStart="32dp"
-        android:text="To"
-        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewFrom"
-        app:layout_constraintStart_toEndOf="@+id/spinnerFromCurrency" />
+        <Spinner
+            android:id="@+id/spinnerFromCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp" />
 
-    <Spinner
-        android:id="@+id/spinnerToCurrency"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewFrom"
-        app:layout_constraintStart_toEndOf="@+id/textViewTo"
-        android:entries="@array/to_currency"/>
+        <TextView
+            android:id="@+id/textViewTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="32dp"
+            android:layout_marginStart="32dp"
+            android:text="To"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/spinnerToCurrency"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/buttonSubmitConversion"
@@ -104,11 +104,12 @@
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="@string/button_submit_conv"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFrom" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <TextView
         android:id="@+id/textViewResultConversion"
@@ -116,7 +117,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/currency_conversion_result"
-        app:layout_constraintStart_toStartOf="@+id/textViewFrom"
         app:layout_constraintTop_toBottomOf="@+id/buttonSubmitConversion"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textSize="18sp"/>
