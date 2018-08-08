@@ -90,6 +90,16 @@ public class MainActivity extends AppCompatActivity {
                         resultConversionSelling = 1/getSellingUSD;
                         textViewToCurrencyStringB.setText(currencyTo.toString());
                         textViewToCurrencyStringS.setText(currencyTo.toString());
+                    } else if (currencyFrom.equals("EUR") && currencyTo.equals("USD")) {
+                        resultConversionBuying = getBuyingEuro/getBuyingUSD;
+                        resultConversionSelling = getSellingEuro/getSellingUSD;
+                        textViewToCurrencyStringB.setText(currencyTo.toString());
+                        textViewToCurrencyStringS.setText(currencyTo.toString());
+                    } else if (currencyFrom.equals("USD") && currencyTo.equals("EUR")) {
+                        resultConversionBuying = getBuyingUSD/getBuyingEuro;
+                        resultConversionSelling = getSellingUSD/getSellingEuro;
+                        textViewToCurrencyStringB.setText(currencyTo.toString());
+                        textViewToCurrencyStringS.setText(currencyTo.toString());
                     }
                     else if (currencyFrom == currencyTo){
                         resultConversionBuying = 1;
